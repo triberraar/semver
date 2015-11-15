@@ -96,4 +96,8 @@ public class Version {
 		return stringBuilder.toString();
 	}
 
+	public boolean isCompatbile(Version otherVersion) {
+		return otherVersion.getMajor().equals(this.getMajor());
+	}
+
 }
