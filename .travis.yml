@@ -3,14 +3,5 @@ jdk:
 script: mvn verify
 after_success:
 - mvn cobertura:cobertura coveralls:report
-env:
-  global:
-    secure: PFGF0yxkT87ZYlIBb4uQsyRvYhMquS1EFnj+18OM6Nu0vWq9W09if0Ir4k42GtSCfSNv+uKKPKrdspWb2SOzYViS2dOioZqzDRfYHWY9wiB5wePa/E46Q1kIT6/xCs3l/ydnpEbE6waecHbMMaWJ9orJyKaNOzmb4uxt+ovPoB64Qx8ayEU6JwKZ6kAgrtPlkvLXCc+ZV8Ya3bAwOSBAQKa3rxbQavL36gGUYu1I2v3NQxSOOm/Vd1w8W+rtr96cAVZbHtWzZNrBu7byNNaChwbWVGD3jtp8Tcx+XGST+s8BmQYwWXrRrgvEP7wD3unXp3lmkaPQinw2WkAXpokpi3yWhItyGj22MI4e4kinMq6LcXy9++o4XIWWkevfoTUB2FXvxSJfiakGHJ4ygT8/Ucq2YI3Tan7FCyjPEOFCTnmllS9AjzAihoj7IEimNaYfWh04LSgt4X6kpx+yi8hv0vdJMXJDX7yPl8r1pLBL769y6rcYkCUxb6CTP/rbMSRWQdZk7XBIUUQPq73JiQ7eJr7GG7lYNVdsK+4ppwYCZEgNMV3pU5q3UP4nOt7TfR5wsoKgJu4MM3Z80qz5aQep1QNCRAfmh9AK5NBddf2evwJCaUZapAaWD9lTNIt9vp393rBuygTA5UGxlSt+D34zl1G3c+sQI2r9JeyTU4DBtBo=
-addons:
-  coverity_scan:
-    project:
-      name: triberraar/semver
-      description: Build submitted via Travis CI
-    notification_email: geertolaerts@gmail.com
-    build_command: mvn clean package
-    branch_pattern: develop
+
+
