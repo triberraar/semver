@@ -11,6 +11,7 @@
 	<name>semver</name>
 	<description>A semver parsing library</description>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.junit>4.12</version.junit>
 		<version.assertj>3.2.0</version.assertj>
 	</properties>
