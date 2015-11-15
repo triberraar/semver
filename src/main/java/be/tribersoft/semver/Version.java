@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class Version {
+public class Version implements Comparable<Version> {
 	private static final String REGEX = "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:(?:\\d*[A-Za-z-][0-9A-Za-z-]*|(?:0|[1-9]\\d*))\\.)*(?:\\d*[A-Za-z-][0-9A-Za-z-]*|(?:0|[1-9]\\d*))))?(?:\\+((?:(?:[0-9A-Za-z-]+)\\.)*[0-9A-Za-z-]+))?";
 	private static final Pattern SEMVER = Pattern.compile(REGEX);
 
@@ -163,9 +163,9 @@ public class Version {
 			return false;
 		}
 		if (this.getPreRelease().isPresent() && !otherVersion.getPreRelease().isPresent()) {
-			return false;
-		} else if (!this.getPreRelease().isPresent() && otherVersion.getPreRelease().isPresent()) {
 			return true;
+		} else if (!this.getPreRelease().isPresent() && otherVersion.getPreRelease().isPresent()) {
+			return false;
 		}
 		return comparePreRelease(otherVersion);
 	}
@@ -190,13 +190,21 @@ public class Version {
 					return preReleaseItem.compareTo(otherPreReleaseItem) < 0;
 				}
 			}
-			if (i == otherSplittedPreRelease.length) {
-				return true;
-			}
+		}
+
+		if (otherSplittedPreRelease.length < splittedPreRelease.length) {
+			return false;
+		} else if (otherSplittedPreRelease.length > splittedPreRelease.length) {
+			return true;
 		}
 
 		return false;
 
+	}
+
+	@Override
+	public int compareTo(Version o) {
+		return this.isBefore(o) ? -1 : 1;
 	}
 
 }

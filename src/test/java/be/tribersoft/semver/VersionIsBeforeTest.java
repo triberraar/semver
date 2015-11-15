@@ -55,19 +55,19 @@ public class VersionIsBeforeTest {
 	}
 
 	@Test
-	public void returnsTrueWhenMajorMinorAndPatchAreSameButThisHasNoPreReleaseAndOtherHasPreRelease() {
+	public void returnsFalseWhenMajorMinorAndPatchAreSameButThisHasNoPreReleaseAndOtherHasPreRelease() {
 		Version version1 = new Version("1.2.3");
 		Version version2 = new Version("1.2.3-SNAPSHOT");
 
-		assertThat(version1.isBefore(version2)).isTrue();
+		assertThat(version1.isBefore(version2)).isFalse();
 	}
 
 	@Test
-	public void returnsFalseWhenMajorMinorAndPatchAreSameButThisHasPreReleaseAndOtherHasNoPreRelease() {
+	public void returnsTrueWhenMajorMinorAndPatchAreSameButThisHasPreReleaseAndOtherHasNoPreRelease() {
 		Version version1 = new Version("1.2.3-SNAPSHOT");
 		Version version2 = new Version("1.2.3");
 
-		assertThat(version1.isBefore(version2)).isFalse();
+		assertThat(version1.isBefore(version2)).isTrue();
 	}
 
 	@Test
@@ -116,6 +116,14 @@ public class VersionIsBeforeTest {
 		Version version2 = new Version("1.2.3-a");
 
 		assertThat(version1.isBefore(version2)).isFalse();
+	}
+
+	@Test
+	public void returnsTruextWhenMajorMinorAndPatchAreSameAndThisHasSmallerPreReleaseSet() {
+		Version version1 = new Version("1.2.3-alpha");
+		Version version2 = new Version("1.2.3-alpha.1");
+
+		assertThat(version1.isBefore(version2)).isTrue();
 	}
 
 	@Test
