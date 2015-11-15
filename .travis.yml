@@ -1,0 +1,7 @@
+jdk:
+- oraclejdk8
+script: mvn verify
+after_success:
+- mvn cobertura:cobertura coveralls:report
+
+
