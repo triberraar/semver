@@ -77,4 +77,23 @@ public class Version {
 		return buildMetadata;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(String.valueOf(major));
+		stringBuilder.append(".");
+		stringBuilder.append(String.valueOf(minor));
+		stringBuilder.append(".");
+		stringBuilder.append(String.valueOf(patch));
+		if (getPreRelease().isPresent()) {
+			stringBuilder.append("-");
+			stringBuilder.append(getPreRelease().get());
+		}
+		if (getBuildMetadata().isPresent()) {
+			stringBuilder.append("+");
+			stringBuilder.append(getBuildMetadata().get());
+		}
+		return stringBuilder.toString();
+	}
+
 }
