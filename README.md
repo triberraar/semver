@@ -5,3 +5,11 @@ It also provides functionality as checking compatability and order between diffe
 
 It is written in java 8.
 
+## Stati
+### Development
+![Travis status](https://img.shields.io/travis/triberraar/semver/develop.svg)
+![Coveralls status](https://img.shields.io/coveralls/triberraar/semver/develop.svg)
+
+### Master
+![Travis status](https://img.shields.io/travis/triberraar/semver/master.svg)
+![Coveralls status](https://img.shields.io/coveralls/triberraar/semver/master.svg)
