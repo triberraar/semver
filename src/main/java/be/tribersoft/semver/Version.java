@@ -100,4 +100,103 @@ public class Version {
 		return otherVersion.getMajor().equals(this.getMajor());
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((major == null) ? 0 : major.hashCode());
+		result = prime * result + ((minor == null) ? 0 : minor.hashCode());
+		result = prime * result + ((patch == null) ? 0 : patch.hashCode());
+		result = prime * result + ((preRelease == null) ? 0 : preRelease.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Version other = (Version) obj;
+		if (major == null) {
+			if (other.major != null)
+				return false;
+		} else if (!major.equals(other.major))
+			return false;
+		if (minor == null) {
+			if (other.minor != null)
+				return false;
+		} else if (!minor.equals(other.minor))
+			return false;
+		if (patch == null) {
+			if (other.patch != null)
+				return false;
+		} else if (!patch.equals(other.patch))
+			return false;
+		if (preRelease == null) {
+			if (other.preRelease != null)
+				return false;
+		} else if (!preRelease.equals(other.preRelease))
+			return false;
+		return true;
+	}
+
+	public boolean isBefore(Version otherVersion) {
+		if (this.equals(otherVersion)) {
+			return false;
+		}
+		if (this.getMajor() < otherVersion.getMajor()) {
+			return true;
+		} else if (this.getMajor() > otherVersion.getMajor()) {
+			return false;
+		}
+		if (this.getMinor() < otherVersion.getMinor()) {
+			return true;
+		} else if (this.getMinor() > otherVersion.getMinor()) {
+			return false;
+		}
+		if (this.getPatch() < otherVersion.getPatch()) {
+			return true;
+		} else if (this.getPatch() > otherVersion.getPatch()) {
+			return false;
+		}
+		if (this.getPreRelease().isPresent() && !otherVersion.getPreRelease().isPresent()) {
+			return false;
+		} else if (!this.getPreRelease().isPresent() && otherVersion.getPreRelease().isPresent()) {
+			return true;
+		}
+		return comparePreRelease(otherVersion);
+	}
+
+	private boolean comparePreRelease(Version otherVersion) {
+		String[] splittedPreRelease = this.getPreRelease().get().split("\\.");
+		String[] otherSplittedPreRelease = otherVersion.getPreRelease().get().split("\\.");
+
+		for (int i = 0; i < splittedPreRelease.length; i++) {
+			if (i < otherSplittedPreRelease.length && !splittedPreRelease[i].equals(otherSplittedPreRelease[i])) {
+				String preReleaseItem = splittedPreRelease[i];
+				String otherPreReleaseItem = otherSplittedPreRelease[i];
+
+				if (StringUtils.isNumeric(preReleaseItem) && !StringUtils.isNumeric(otherPreReleaseItem)) {
+					return true;
+				} else if (StringUtils.isNumeric(otherPreReleaseItem) && !StringUtils.isNumeric(preReleaseItem)) {
+					return false;
+				}
+				if (StringUtils.isNumeric(preReleaseItem) && StringUtils.isNumeric(otherPreReleaseItem)) {
+					return Integer.valueOf(preReleaseItem) < Integer.valueOf(otherPreReleaseItem);
+				} else {
+					return preReleaseItem.compareTo(otherPreReleaseItem) < 0;
+				}
+			}
+			if (i == otherSplittedPreRelease.length) {
+				return true;
+			}
+		}
+
+		return false;
+
+	}
+
 }
