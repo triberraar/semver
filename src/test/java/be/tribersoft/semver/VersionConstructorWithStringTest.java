@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-public class VersionConstructorTest {
+public class VersionConstructorWithStringTest {
 
 	@Test(expected = NotASemverException.class)
 	public void failsFailsForRandomString() {
@@ -47,7 +47,7 @@ public class VersionConstructorTest {
 	}
 
 	@Test(expected = NotASemverException.class)
-	public void failsWhenBuildMetaDataIsProvidedAndNumericWithLeadingZero() {
+	public void failsWhenBuildPreReleaseIsProvidedAndNumericWithLeadingZero() {
 		new Version("1.1.1-01");
 	}
 
